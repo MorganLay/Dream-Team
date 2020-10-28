@@ -2,6 +2,7 @@ package ca.simply_active;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,8 +24,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
 
+        // Ensure Location Permissions are up to date.
+        //permissionsToRequest = permissionsToRequest(permissions);
+
+        // Get User Location
+        //Location currentLocation
+    }
+/*
+    private void getLocationPermission(){
+        String[] permissions = {
+                Manifest.permission.ACCESS_FINE_LOCATION, }
+    }*/
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
