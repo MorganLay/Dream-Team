@@ -15,7 +15,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.alphadrawer.MainActivity;
 import com.example.alphadrawer.R;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
+import com.google.android.libraries.places.api.net.PlacesClient;
+
+import java.util.Arrays;
+import java.util.List;
+
 
 public class GalleryFragment extends Fragment {
 
@@ -24,9 +33,12 @@ public class GalleryFragment extends Fragment {
     Button ClickedButton;
     String activityName;
 
-    // Array that contains the options for the user to select activities. For testing purposes, these are the following:
-    // Array can be changed based on user profile/preferences. Perhaps sorted by their likelihood to use it.
+    /*  Array that contains the options for the user to select activities. For testing purposes, these are the following:
+        Array can be changed based on user profile/preferences. Perhaps sorted by their likelihood to use it.
+     */
     String[] activityArr = { "Tennis", "Hiking", "Skiing", "Swimming", "Golf" };
+
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -65,10 +77,27 @@ public class GalleryFragment extends Fragment {
             public void onClick(View w){
                 activityName = activitySpin.getSelectedItem().toString();
                 System.out.println("THE BUTTON WAS CLICKED and it says: " + activityName);
+
             }
         });
+
+        // Initialize the SDK
+        Places.initialize(root.getContext(), "AIzaSyASB_iNXNrvejnHEvRwmtXtmNWhn--h-_U");
+
+        // Create a new PlacesClient instance
+        PlacesClient placesClient = Places.createClient(root.getContext());
+
+        // Use fields to define the data types to return.
+        List<Place.Field> placeFields = Arrays.asList(Place.Field.ID,
+                Place.Field.NAME,Place.Field.ADDRESS);
+
+        // Use the builder to create a FindCurrentPlaceRequest.
+        FindCurrentPlaceRequest request = FindCurrentPlaceRequest.builder(placeFields).build();
+
+
 
 
         return root;
     }
+
 }
