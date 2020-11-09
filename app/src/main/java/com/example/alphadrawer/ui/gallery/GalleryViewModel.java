@@ -10,7 +10,7 @@ public class GalleryViewModel extends ViewModel {
 
     public GalleryViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is the non-map fragment");
+        mText.setValue("Please Select Your Search Options");
     }
 
     public LiveData<String> getText() {

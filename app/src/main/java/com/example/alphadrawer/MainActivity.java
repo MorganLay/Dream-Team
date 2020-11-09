@@ -28,12 +28,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
     // Used for location services
-    private FusedLocationProviderClient fusedLocationClient;
+    //private FusedLocationProviderClient fusedLocationClient;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = findViewById(R.id.fab);
 
         // Location Client for getting last known location. --- Permissions are requested --- use getLastLocation();
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        //fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+  /*      if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -65,7 +68,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-        }
+        }*/
+
+
+
 
         // Initializes the snack button on the bottom. Can be used later for filtering on the map.
         fab.setOnClickListener(new View.OnClickListener() {

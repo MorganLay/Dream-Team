@@ -13,4 +13,5 @@
     <string name="menu_slideshow">Profile</string>
     <string name="menu_preferences">Preferences</string>
     <string name="menu_map">Nearby Activities</string>
+    <string name="navigationbar">navigationBar</string>
 </resources>

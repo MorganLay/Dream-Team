@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,10 @@ public class GalleryFragment extends Fragment {
 
     private GalleryViewModel galleryViewModel;
 
+    // Array that contains the options for the user to select activities. For testing purposes, these are the following:
+    // Array can be changed based on user profile/preferences. Perhaps sorted by their likelihood to use it.
+    String[] activityArr = { "Tennis", "Hiking", "Skiing", "Swimming", "Golf" };
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel =
@@ -30,6 +36,19 @@ public class GalleryFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
+        /*  Array that contains the options for the user to select activities. For testing purposes, these are the following:
+            Array can be changed based on user profile/preferences. Perhaps sorted by their likelihood to use it.
+
+            activityArr is an array that is used to populate the drop down list.
+         */
+        Spinner activitySpin = (Spinner) root.findViewById(R.id.spinnerSearch);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, activityArr);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        activitySpin.setAdapter(adapter);
+
+
+
         return root;
     }
 }
