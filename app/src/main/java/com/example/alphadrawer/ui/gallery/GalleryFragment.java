@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.alphadrawer.MainActivity;
 import com.example.alphadrawer.R;
+import com.example.alphadrawer.ui.maps.MapsFragment;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
@@ -26,6 +27,7 @@ import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -50,6 +52,11 @@ public class GalleryFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        MapsFragment fragment = new MapsFragment ();
+        Bundle args = new Bundle();
+        args.putString("test", "Vladaisdiadhsaiuhdasuidhasiuhdisauhiu");
+        fragment.setArguments(args);
         galleryViewModel =
                 ViewModelProviders.of(this).get(GalleryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
@@ -121,10 +128,17 @@ public class GalleryFragment extends Fragment {
 
             placesClient.findAutocompletePredictions(request1).addOnSuccessListener((response) -> {
                 System.out.println("This seems to have worked, wow");
+                int counter = 0;
                 for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
                     Log.i(TAG, prediction.getPlaceId());
                     Log.i(TAG, prediction.getPrimaryText(null).toString());
+                    args.putString((Integer.toString(counter)), prediction.getPrimaryText(null).toString());
+                    counter++;
                 }
+                args.putInt("max", counter);
+
+
+                getParentFragmentManager().beginTransaction().add(R.id.mail_container, fragment).commit();
             }).addOnFailureListener((exception) -> {
                 if (exception instanceof ApiException) {
                     ApiException apiException = (ApiException) exception;

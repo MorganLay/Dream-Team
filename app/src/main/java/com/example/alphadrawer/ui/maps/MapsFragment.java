@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.example.alphadrawer.R;
+import com.google.android.libraries.places.api.Places;
 
 public class MapsFragment extends Fragment {
 
@@ -51,7 +52,12 @@ public class MapsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
+        int value = getArguments().getInt("max");
+        for (int i = 0; i < value; i++){
+            System.out.println(getArguments().getString(Integer.toString(i)));
+            }
+
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
@@ -64,4 +70,6 @@ public class MapsFragment extends Fragment {
             mapFragment.getMapAsync(callback);
         }
     }
+
+
 }
