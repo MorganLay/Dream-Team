@@ -6,6 +6,8 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -20,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -33,10 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    // Used for location services
-    //private FusedLocationProviderClient fusedLocationClient;
-
-
+    Button ClickedButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,35 +45,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        // Location Client for getting last known location. --- Permissions are requested --- use getLastLocation();
-        //fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-  /*      if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            System.out.print("Permissions need some work fam");
-        } else{
-            fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>(){
-                @Override
-                public void onSuccess(Location location){
-                    if (location!= null){
-                        // handle location obj
-                        System.out.print("The location data is:::::::::: " + location.getLatitude() + " and longitude is: " + location.getLongitude());
-                    }
-                }
-            });
-        }*/
-
-
-
-
-        // Initializes the snack button on the bottom. Can be used later for filtering on the map.
+        /*
+            Button click handler
+         */
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
