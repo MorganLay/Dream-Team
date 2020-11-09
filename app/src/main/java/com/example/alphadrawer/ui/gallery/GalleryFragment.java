@@ -100,22 +100,24 @@ public class GalleryFragment extends Fragment {
 
             // Create a RectangularBounds object.
             RectangularBounds bounds = RectangularBounds.newInstance(
-                    new LatLng(-33.880490, 151.184363),
-                    new LatLng(-33.858754, 151.229596));
+                    new LatLng(45.411532,-75.707189),
+                    new LatLng(45.431532,-75.627189));
             // Use the builder to create a FindAutocompletePredictionsRequest.
 
-            String query = "";
+            String query = "Park";
 
 
             FindAutocompletePredictionsRequest request1 = FindAutocompletePredictionsRequest.builder()
                     // Call either setLocationBias() OR setLocationRestriction().
-                    //.setLocationBias(bounds)
+                    .setLocationBias(bounds)
                     //.setLocationRestriction(bounds)
-                    .setOrigin(new LatLng(45.41117,-75.69812))
-                    .setTypeFilter(TypeFilter.ADDRESS)
+                    .setOrigin(new LatLng(45.421532,-75.697189))
+                    //.setTypeFilter(TypeFilter.ADDRESS)
                     .setSessionToken(token)
                     .setQuery(query)
                     .build();
+
+            System.out.println(request1);
 
             placesClient.findAutocompletePredictions(request1).addOnSuccessListener((response) -> {
                 System.out.println("This seems to have worked, wow");
