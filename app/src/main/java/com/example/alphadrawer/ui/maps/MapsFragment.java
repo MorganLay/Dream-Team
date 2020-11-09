@@ -19,6 +19,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.alphadrawer.R;
 import com.google.android.libraries.places.api.Places;
 
+import java.io.IOException;
+
 public class MapsFragment extends Fragment {
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
@@ -53,10 +55,18 @@ public class MapsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
-        int value = getArguments().getInt("max");
-        for (int i = 0; i < value; i++){
-            System.out.println(getArguments().getString(Integer.toString(i)));
+        try {
+
+            int value = getArguments().getInt("max");
+            System.out.println("Maps printing");
+            System.out.println(value);
+            for (int i = 0; i < value; i++) {
+                System.out.println(getArguments().getString(Integer.toString(i)));
             }
+
+        } catch (Exception e){
+            System.out.println(e);
+        }
 
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }

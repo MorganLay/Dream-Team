@@ -32,6 +32,7 @@ import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRe
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class GalleryFragment extends Fragment {
     String[] activityArr = { "Tennis", "Hiking", "Skiing", "Swimming", "Golf" };
     public static final String TAG = "YOUR-TAG-NAME";
 
+    ArrayList<String> idArr = new ArrayList<>();
+    ArrayList<String> nameArr = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +59,7 @@ public class GalleryFragment extends Fragment {
         MapsFragment fragment = new MapsFragment ();
         Bundle args = new Bundle();
         args.putString("test", "Vladaisdiadhsaiuhdasuidhasiuhdisauhiu");
+        args.putInt("max", 0);
         fragment.setArguments(args);
         galleryViewModel =
                 ViewModelProviders.of(this).get(GalleryViewModel.class);
@@ -128,14 +132,18 @@ public class GalleryFragment extends Fragment {
 
             placesClient.findAutocompletePredictions(request1).addOnSuccessListener((response) -> {
                 System.out.println("This seems to have worked, wow");
-                int counter = 0;
                 for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
                     Log.i(TAG, prediction.getPlaceId());
                     Log.i(TAG, prediction.getPrimaryText(null).toString());
-                    args.putString((Integer.toString(counter)), prediction.getPrimaryText(null).toString());
-                    counter++;
+                    idArr.add(prediction.getPlaceId());
+                    nameArr.add(prediction.getPrimaryText(null).toString());
                 }
-                args.putInt("max", counter);
+
+                int size = idArr.size();
+                args.putInt("max", size);
+                for(int i = 0; i < size; i++){
+                    args.putString(Integer.toString(i), nameArr.get(i));
+                }
 
 
                 getParentFragmentManager().beginTransaction().add(R.id.mail_container, fragment).commit();
@@ -150,9 +158,8 @@ public class GalleryFragment extends Fragment {
 
         });
 
-
-
         return root;
     }
+
 
 }
