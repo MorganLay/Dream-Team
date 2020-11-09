@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
+
 
         // Location Client for getting last known location. --- Permissions are requested --- use getLastLocation();
         //fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -74,13 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Initializes the snack button on the bottom. Can be used later for filtering on the map.
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Perhaps use this later as a filter option on maps", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
