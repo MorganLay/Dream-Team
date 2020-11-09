@@ -22,6 +22,7 @@ public class GalleryFragment extends Fragment {
     private GalleryViewModel galleryViewModel;
 
     Button ClickedButton;
+    String activityName;
 
     // Array that contains the options for the user to select activities. For testing purposes, these are the following:
     // Array can be changed based on user profile/preferences. Perhaps sorted by their likelihood to use it.
@@ -45,19 +46,25 @@ public class GalleryFragment extends Fragment {
 
             activityArr is an array that is used to populate the drop down list.
          */
-        Spinner activitySpin = root.findViewById(R.id.spinnerSearch);
+        final Spinner activitySpin = root.findViewById(R.id.spinnerSearch);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_spinner_item, activityArr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         activitySpin.setAdapter(adapter);
 
         /*
-            Get the value of the array on submit
+            Get the value of the array on submit.
+            When the submit button is clicked, it gets the current value from the drop down menu (spinner).
+            This onClick can also be used to get values from the various filters if they're not-null/unused.
+
+            Used the following resource for additional help:
+            https://www.android-examples.com/how-to-create-onclick-event-in-android-on-button-click/
          */
         ClickedButton = root.findViewById(R.id.search_submit_button);
         ClickedButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View w){
-                System.out.println("THE BUTTON WAS CLICKED");
+                activityName = activitySpin.getSelectedItem().toString();
+                System.out.println("THE BUTTON WAS CLICKED and it says: " + activityName);
             }
         });
 
