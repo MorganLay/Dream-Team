@@ -104,7 +104,7 @@ public class GalleryFragment extends Fragment {
                     new LatLng(-33.858754, 151.229596));
             // Use the builder to create a FindAutocompletePredictionsRequest.
 
-            String query = "golf";
+            String query = "";
 
 
             FindAutocompletePredictionsRequest request1 = FindAutocompletePredictionsRequest.builder()
