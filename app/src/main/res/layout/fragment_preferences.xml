@@ -18,12 +18,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_horizontal" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <CheckBox
             android:id="@+id/chkIos"
@@ -44,11 +46,24 @@
             android:layout_height="wrap_content"
             android:text="@string/menu_preferences" />
 
-        <Button
-            android:id="@+id/btnDisplay"
+        <CheckBox
+            android:id="@+id/chkWindows1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/menu_preferences" />
+
+        <CheckBox
+            android:id="@+id/chkWindows2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_preferences" />
+
+        <CheckBox
+            android:id="@+id/chkWindows3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_preferences" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
