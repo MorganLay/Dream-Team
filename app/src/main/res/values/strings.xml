@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ALPHADrawer</string>
+    <string name="app_name">Simply Active</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Simply Active TEST</string>
@@ -17,12 +17,14 @@
     <string name="search">Search</string>
     <string name="menu_search">menu_search</string>
     <!-- Strings related to login -->
-    <string name="prompt_userName">User Name</string>
-    <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="login_username_label">User Name/Email</string>
+    <string name="login_password_label">Password</string>
+    <string name="createNewAccount">Don\'t have an account?</string>
+    <string name="action_sign_up">Sign Up with only 1 step</string>
 </resources>
