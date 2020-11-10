@@ -136,7 +136,7 @@ public class GalleryFragment extends Fragment {
                     Log.i(TAG, prediction.getPlaceId());
                     Log.i(TAG, prediction.getPrimaryText(null).toString());
                     idArr.add(prediction.getPlaceId());
-                    nameArr.add(prediction.getPrimaryText(null).toString());
+                    nameArr.add(prediction.getPrimaryText(null).toString() + " " + prediction.getSecondaryText(null).toString());
                 }
 
                 int size = idArr.size();

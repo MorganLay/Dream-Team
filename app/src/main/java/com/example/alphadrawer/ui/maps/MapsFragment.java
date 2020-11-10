@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +23,15 @@ import com.example.alphadrawer.R;
 import com.google.android.libraries.places.api.Places;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MapsFragment extends Fragment {
+
+    GoogleMap mMap;
+    ArrayList<LatLng> locations = new ArrayList<>();
+    ArrayList<String> locationNames = new ArrayList<>();
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -40,13 +50,19 @@ public class MapsFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
 
+            mMap = googleMap;
+
             // Default location if the user doesn't configure their settings        -------- In the future, make an if statement to check if a value in values is configured to the user. Make a file that stores user held data. ------
+
+            for(int i = 0; i < locations.size();i++){
+                mMap.addMarker(new MarkerOptions().position(locations.get(i)).title(locationNames.get(i)));
+            }
             LatLng ottawa = new LatLng(45.42, -75.69);
-            googleMap.addMarker(new MarkerOptions().position(ottawa).title("Marker in Ottawa"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(ottawa));
+            mMap.addMarker(new MarkerOptions().position(ottawa).title("Marker in Ottawa"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(ottawa));
 
             // Configure zoom min and max values here
-            googleMap.setMinZoomPreference(12);
+            mMap.setMinZoomPreference(12);
         }
     };
 
@@ -61,7 +77,8 @@ public class MapsFragment extends Fragment {
             System.out.println("Maps printing");
             System.out.println(value);
             for (int i = 0; i < value; i++) {
-                System.out.println(getArguments().getString(Integer.toString(i)));
+                locations.add(getLocationFromAddress(getContext(),(getArguments().getString(Integer.toString(i)))));
+                locationNames.add(getArguments().getString(Integer.toString(i)));
             }
 
         } catch (Exception e){
@@ -79,6 +96,31 @@ public class MapsFragment extends Fragment {
         if (mapFragment != null) {
             mapFragment.getMapAsync(callback);
         }
+    }
+
+    public LatLng getLocationFromAddress(Context context, String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
     }
 
 
