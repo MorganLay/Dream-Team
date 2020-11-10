@@ -10,5 +10,6 @@
         android:id="@+id/action_logout"
         android:orderInCategory="100"
         android:title="@string/action_logout"
-        app:showAsAction="never"/>
+        app:showAsAction="never"
+        android:onClick="logOutAction"/>
 </menu>
