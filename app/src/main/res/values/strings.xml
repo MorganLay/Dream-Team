@@ -25,6 +25,15 @@
     <string name="login_failed">"Login failed"</string>
     <string name="login_username_label">User Name/Email</string>
     <string name="login_password_label">Password</string>
-    <string name="createNewAccount">Don\'t have an account?</string>
+    <string name="createNewAccount">Create new account</string>
     <string name="action_sign_up">Sign Up with only 1 step</string>
+    <string name="forgotPassword">Forgot password?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcomeLabel">Welcome to</string>
+    <string name="nameLabel">Simply Active</string>
+    <string name="slogan">Your personal excrise assisstent</string>
+    <string name="logInOrSignUp">Sign In / Sign up for FREE</string>
+    <string name="guest">Want to check out first? No worries!</string>
+    <string name="guestLogIn">Continue as guest</string>
 </resources>
