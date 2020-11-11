@@ -36,4 +36,5 @@
     <string name="logInOrSignUp">Sign In / Sign up for FREE</string>
     <string name="guest">Want to check out first? No worries!</string>
     <string name="guestLogIn">Continue as guest</string>
+    <string name="action_guestSignIn">Sign In</string>
 </resources>

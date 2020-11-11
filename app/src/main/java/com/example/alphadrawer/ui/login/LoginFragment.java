@@ -118,6 +118,8 @@ public class LoginFragment extends Fragment {
                         passwordEditText.getText().toString());
                 if(!loginViewModel.getLoginResult().equals(R.string.login_failed)) {
                     Intent intent = new Intent(getContext(), MainActivity.class);
+                    Boolean user = true;
+                    intent.putExtra("user", user);
                     startActivity(intent);
                 }
             }

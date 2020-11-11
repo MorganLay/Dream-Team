@@ -22,7 +22,10 @@ public class WelcomePageActivity extends AppCompatActivity {
     }
 
     public void guestLogInAction(View view){
-        startActivity(new Intent(WelcomePageActivity.this, MainActivity.class));
+        Intent intent = new Intent(WelcomePageActivity.this, MainActivity.class);
+        Boolean user = false;
+        intent.putExtra("guest", user);
+        startActivity(intent);
     }
 }
 

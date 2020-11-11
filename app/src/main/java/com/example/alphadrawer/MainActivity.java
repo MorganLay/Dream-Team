@@ -65,4 +65,25 @@ public class MainActivity extends AppCompatActivity {
     public void logOutAction(MenuItem item){
         startActivity(new Intent(MainActivity.this, WelcomePageActivity.class));
     }
+
+    public void guestLogInAction(MenuItem item){
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            MenuItem logout = menu.findItem(R.id.action_userLogout);
+            MenuItem guest = menu.findItem(R.id.action_guestSignIn);
+            if (extras.getBoolean("user") == true) {
+                logout.setVisible(true);
+                guest.setVisible(false);
+            } else if (extras.getBoolean("user") == false) {
+                logout.setVisible(false);
+                guest.setVisible(true);
+            }
+        }
+        return true;
+    }
 }
