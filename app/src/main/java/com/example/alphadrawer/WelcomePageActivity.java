@@ -20,5 +20,9 @@ public class WelcomePageActivity extends AppCompatActivity {
     public void logInAction(View view){
         startActivity(new Intent(WelcomePageActivity.this, LoginActivity.class));
     }
+
+    public void guestLogInAction(View view){
+        startActivity(new Intent(WelcomePageActivity.this, MainActivity.class));
+    }
 }
 
