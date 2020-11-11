@@ -1,0 +1,5 @@
+Implemented working google places API, and transferring information from fragment to fragment.
+
+Also added markers upon maps API worked on by Morgan
+
+Used geo API to figure out location to work with google places API
