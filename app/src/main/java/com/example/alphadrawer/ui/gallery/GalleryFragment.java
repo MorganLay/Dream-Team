@@ -101,6 +101,7 @@ public class GalleryFragment extends Fragment {
          */
         ClickedButton = root.findViewById(R.id.search_submit_button);
         ClickedButton.setOnClickListener(w -> {
+            ClickedButton.setVisibility(View.GONE);
             activityName = activitySpin.getSelectedItem().toString();
             System.out.println("THE BUTTON WAS CLICKED and it says: " + activityName);
 

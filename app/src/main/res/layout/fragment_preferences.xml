@@ -28,41 +28,45 @@
         tools:ignore="MissingConstraints">
 
         <CheckBox
-            android:id="@+id/chkIos"
+            android:id="@+id/checkbox_id1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="nanan" />
+
+        <CheckBox
+            android:id="@+id/checkbox_id2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="nanana" />
+
+        <CheckBox
+            android:id="@+id/checkbox_id3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/menu_preferences" />
 
         <CheckBox
-            android:id="@+id/chkAndroid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/menu_preferences"
-            android:checked="true" />
-
-        <CheckBox
-            android:id="@+id/chkWindows"
+            android:id="@+id/checkbox_id4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/menu_preferences" />
 
         <CheckBox
-            android:id="@+id/chkWindows1"
+            android:id="@+id/checkbox_id5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/menu_preferences" />
 
         <CheckBox
-            android:id="@+id/chkWindows2"
+            android:id="@+id/checkbox_id6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/menu_preferences" />
 
-        <CheckBox
-            android:id="@+id/chkWindows3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/menu_preferences" />
+        <FrameLayout
+            android:id="@+id/pref_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
     </LinearLayout>
