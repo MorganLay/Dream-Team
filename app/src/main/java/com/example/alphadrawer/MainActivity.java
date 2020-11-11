@@ -63,6 +63,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logOutAction(MenuItem item){
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        startActivity(new Intent(MainActivity.this, WelcomePageActivity.class));
     }
 }
