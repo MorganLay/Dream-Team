@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.NavHostController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -70,18 +67,25 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 
+    public void settingsAction(MenuItem item){
+        startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+    }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu){
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             MenuItem logout = menu.findItem(R.id.action_userLogout);
-            MenuItem guest = menu.findItem(R.id.action_guestSignIn);
+            MenuItem guestSignIn = menu.findItem(R.id.action_guestSignIn);
+            MenuItem settings = menu.findItem(R.id.action_settings);
             if (extras.getBoolean("user") == true) {
                 logout.setVisible(true);
-                guest.setVisible(false);
+                guestSignIn.setVisible(false);
+                settings.setVisible(true);
             } else if (extras.getBoolean("user") == false) {
                 logout.setVisible(false);
-                guest.setVisible(true);
+                guestSignIn.setVisible(true);
+                settings.setVisible(false);
             }
         }
         return true;
