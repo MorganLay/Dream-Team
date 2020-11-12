@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import android.content.Intent;
 import android.util.Patterns;
 
 import com.example.alphadrawer.data.LoginRepository;
@@ -14,7 +13,7 @@ import com.example.alphadrawer.R;
 
 public class LoginViewModel extends ViewModel {
 
-    private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
+    private MutableLiveData<AccountFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private LoginRepository loginRepository;
 
@@ -22,7 +21,7 @@ public class LoginViewModel extends ViewModel {
         this.loginRepository = loginRepository;
     }
 
-    LiveData<LoginFormState> getLoginFormState() {
+    LiveData<AccountFormState> getLoginFormState() {
         return loginFormState;
     }
 
@@ -42,30 +41,24 @@ public class LoginViewModel extends ViewModel {
         }
     }
 
-    public void loginDataChanged(String username, String password) {
-        if (!isUserNameValid(username)) {
-            loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
-        } else if (!isPasswordValid(password)) {
-            loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));
-        } else {
-            loginFormState.setValue(new LoginFormState(true));
+    public void loginDataChanged(String email, String password) {
+        if (!isUserNameValid(email)) {
+            loginFormState.setValue(new AccountFormState(R.string.invalid_username, null));
+        }
+        else {
+            loginFormState.setValue(new AccountFormState(true));
         }
     }
 
-    // A placeholder username validation check
-    private boolean isUserNameValid(String username) {
-        if (username == null) {
+    // A placeholder email validation check
+    private boolean isUserNameValid(String email) {
+        if (email == null) {
             return false;
         }
-        if (username.contains("@")) {
-            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
+        if (!email.contains("@") || !email.contains(".com")) {
+            return false;
         } else {
-            return !username.trim().isEmpty();
+            return Patterns.EMAIL_ADDRESS.matcher(email).matches();
         }
-    }
-
-    // A placeholder password validation check
-    private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
     }
 }
