@@ -23,7 +23,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="login_username_label">User Name/Email</string>
+    <string name="login_username_label">Email</string>
     <string name="login_password_label">Password</string>
     <string name="createNewAccount">Create new account</string>
     <string name="action_sign_up">Sign Up with only 1 step</string>
@@ -49,4 +49,11 @@
     <string name="attachment_title">Download incoming attachments</string>
     <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <!-- New account -->
+    <string name="newAccountTitle">Tell us about you</string>
+    <string name="newAccountTitleExtra">Your information is safe with us. Guaranteed.</string>
+    <string name="newAccountNameLabel">Name</string>
+    <string name="newAccountEmailLabel">Email</string>
+    <string name="newAccountActivityLabel">What are your favourites?</string>
+    <string name="newAccountButton">Let\'s get started!</string>
 </resources>

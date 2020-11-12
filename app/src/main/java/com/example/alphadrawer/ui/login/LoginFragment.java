@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.example.alphadrawer.MainActivity;
 import com.example.alphadrawer.R;
 import com.example.alphadrawer.ui.home.HomeFragment;
+import com.example.alphadrawer.ui.newAccount.newAccountFragment;
 
 public class LoginFragment extends Fragment {
 
@@ -49,7 +50,6 @@ public class LoginFragment extends Fragment {
         final EditText passwordEditText = view.findViewById(R.id.password);
         final Button loginButton = view.findViewById(R.id.signIn);
         final Button signUpButton  = view.findViewById(R.id.signUp);
-        signUpButton.setEnabled(true);
 
         loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<LoginFormState>() {
             @Override
@@ -121,6 +121,16 @@ public class LoginFragment extends Fragment {
                     intent.putExtra("user", user);
                     startActivity(intent);
                 }
+            }
+        });
+
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                newAccountFragment nextFrag= new newAccountFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.nav_host_fragment, nextFrag)
+                        .commit();
             }
         });
     }
