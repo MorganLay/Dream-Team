@@ -67,6 +67,7 @@ public class newAccountFragment extends Fragment {
         });
 
         final EditText emailEditText = view.findViewById(R.id.newAccountEmail);
+        final EditText nameEditText = view.findViewById(R.id.newAccountName);
         final EditText passwordEditText = view.findViewById(R.id.newAccountPassword);
         final Button accountCreatedButton = view.findViewById(R.id.newAccountButton);
 
@@ -82,6 +83,9 @@ public class newAccountFragment extends Fragment {
                 }
                 if (loginFormState.getPasswordError() != null) {
                     passwordEditText.setError(getString(loginFormState.getPasswordError()));
+                }
+                if (loginFormState.getUserNameError() != null) {
+                    nameEditText.setError(getString(loginFormState.getUserNameError()));
                 }
             }
         });
@@ -112,11 +116,12 @@ public class newAccountFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 newAccountViewModel.loginDataChanged(emailEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                        passwordEditText.getText().toString(), nameEditText.getText().toString());
             }
         };
         emailEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
+        nameEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
@@ -135,7 +140,9 @@ public class newAccountFragment extends Fragment {
                 newAccountViewModel.login(emailEditText.getText().toString(), passwordEditText.getText().toString());
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 Boolean user = true;
+
                 intent.putExtra("user", user);
+
                 startActivity(intent);
             }
         });

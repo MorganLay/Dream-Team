@@ -20,7 +20,7 @@
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Email address not valid</string>
+    <string name="invalid_userEmail">Email address not valid</string>
     <string name="invalid_password">Password must be >8 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="login_username_label">Email</string>
@@ -28,6 +28,7 @@
     <string name="createNewAccount">Create new account</string>
     <string name="action_sign_up">Sign Up with only 1 step</string>
     <string name="forgotPassword">Forgot password?</string>
+    <string name="invalid_userName">Please enter a nick name</string>
     <!-- Welcome Page -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcomeLabel">Welcome to</string>
@@ -54,7 +55,7 @@
     <string name="newAccountTitleExtra">Your information is safe with us. Guaranteed.</string>
     <string name="newAccountNameLabel">Name</string>
     <string name="newAccountEmailLabel">Email</string>
-    <string name="newAccountActivityLabel">What are your favourites?</string>
+    <string name="newAccountActivityLabel">What are your favourites? (Optional)</string>
     <string name="newAccountButton">Let\'s get started!</string>
     <string name="goBackToLogin"><u>Already have an account?</u></string>
 </resources>

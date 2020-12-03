@@ -1,0 +1,2 @@
+play around with anroid studio and figure out how frgment and activities work
+Begin on working user login page

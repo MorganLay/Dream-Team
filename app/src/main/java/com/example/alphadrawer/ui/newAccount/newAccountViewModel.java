@@ -43,19 +43,21 @@ public class newAccountViewModel extends ViewModel {
         }
     }
 
-    public void loginDataChanged(String email, String password) {
-        if (!isUserNameValid(email)) {
-            loginFormState.setValue(new AccountFormState(R.string.invalid_username, null));
+    public void loginDataChanged(String email, String password, String userName) {
+        if (!isUserEmailValid(email)) {
+            loginFormState.setValue(new AccountFormState(R.string.invalid_userEmail, null, null));
         }else if (!isPasswordValid(password)) {
-            loginFormState.setValue(new AccountFormState(null, R.string.invalid_password));
+            loginFormState.setValue(new AccountFormState(null, R.string.invalid_password, null));
+        }else if (!isUserNameValid(userName)) {
+            loginFormState.setValue(new AccountFormState(null, null, R.string.invalid_userName));
         }
         else {
-            loginFormState.setValue(new AccountFormState(true));
+            loginFormState.setValue(new AccountFormState(true, false));
         }
     }
 
     // A placeholder email validation check
-    private boolean isUserNameValid(String email) {
+    private boolean isUserEmailValid(String email) {
         if (email == null) {
             return false;
         }
@@ -68,5 +70,9 @@ public class newAccountViewModel extends ViewModel {
 
     private boolean isPasswordValid(String password) {
         return password != null && password.trim().length() > 8;
+    }
+
+    private boolean isUserNameValid(String userName) {
+        return userName != null && !userName.isEmpty();
     }
 }

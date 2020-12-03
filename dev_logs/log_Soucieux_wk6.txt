@@ -1,0 +1,2 @@
+Complete user registration page.
+Update user info from login page/registration page to main page

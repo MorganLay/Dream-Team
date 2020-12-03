@@ -10,6 +10,8 @@ public class AccountFormState {
     private Integer emailError;
     @Nullable
     private Integer passwordError;
+    @Nullable
+    private Integer userNameError;
     private boolean isDataValid;
 
     public AccountFormState(@Nullable Integer emailError, @Nullable Integer passwordError) {
@@ -18,7 +20,17 @@ public class AccountFormState {
         this.isDataValid = false;
     }
 
-    public AccountFormState(boolean isDataValid) {
+    public AccountFormState(@Nullable Integer emailError, @Nullable Integer passwordError, @Nullable Integer userNameError) {
+        this.emailError = emailError;
+        this.passwordError = passwordError;
+        this.userNameError = userNameError;
+        this.isDataValid = false;
+    }
+
+    public AccountFormState(boolean isDataValid, boolean login) {
+        if (!login) {
+            this.userNameError = null;
+        }
         this.emailError = null;
         this.passwordError = null;
         this.isDataValid = isDataValid;
@@ -32,6 +44,11 @@ public class AccountFormState {
     @Nullable
     public Integer getPasswordError() {
         return passwordError;
+    }
+
+    @Nullable
+    public Integer getUserNameError() {
+        return userNameError;
     }
 
     public boolean isDataValid() {
