@@ -2,8 +2,8 @@
     <string name="app_name">Simply Active</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Simply Active TEST</string>
-    <string name="nav_header_subtitle">simplyactiveTesting@android.com</string>
+    <string name="nav_header_title">Simply Active</string>
+    <string name="nav_header_subtitle">Not Applicable</string>
     <!-- Main -->
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>

@@ -115,7 +115,9 @@ public class LoginFragment extends Fragment {
                 if(!loginViewModel.getLoginResult().equals(R.string.login_failed)) {
                     Intent intent = new Intent(getContext(), MainActivity.class);
                     Boolean user = true;
+                    String email = emailEditText.getText().toString();
                     intent.putExtra("user", user);
+                    intent.putExtra("email", email);
                     startActivity(intent);
                 }
             }

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -42,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = ((NavHostFragment) navHostFragment).getNavController();
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
     }
 
     @Override
@@ -82,11 +82,26 @@ public class MainActivity extends AppCompatActivity {
                 logout.setVisible(true);
                 guestSignIn.setVisible(false);
                 settings.setVisible(true);
+
+                Intent intent = getIntent();
+                String userName = intent.getStringExtra("userName");
+                String email = intent.getStringExtra("email");
+                if(userName != null) {
+                    ((TextView) findViewById(R.id.userName)).setText(userName);
+                }
+                if(email != null) {
+                    ((TextView) findViewById(R.id.emailAddress)).setText(email);
+                }
+
             } else if (extras.getBoolean("user") == false) {
                 logout.setVisible(false);
                 guestSignIn.setVisible(true);
                 settings.setVisible(false);
+
+                ((TextView) findViewById(R.id.userName)).setText("Guest");
+                ((TextView) findViewById(R.id.emailAddress)).setText(" ");
             }
+
         }
         return true;
     }

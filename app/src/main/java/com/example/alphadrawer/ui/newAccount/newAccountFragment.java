@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -140,9 +141,11 @@ public class newAccountFragment extends Fragment {
                 newAccountViewModel.login(emailEditText.getText().toString(), passwordEditText.getText().toString());
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 Boolean user = true;
-
+                String userName = nameEditText.getText().toString();
+                String email = emailEditText.getText().toString();
                 intent.putExtra("user", user);
-
+                intent.putExtra("userName", userName);
+                intent.putExtra("email", email);
                 startActivity(intent);
             }
         });

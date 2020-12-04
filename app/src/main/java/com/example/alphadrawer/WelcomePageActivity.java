@@ -24,7 +24,7 @@ public class WelcomePageActivity extends AppCompatActivity {
     public void guestLogInAction(View view){
         Intent intent = new Intent(WelcomePageActivity.this, MainActivity.class);
         Boolean user = false;
-        intent.putExtra("guest", user);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 }
