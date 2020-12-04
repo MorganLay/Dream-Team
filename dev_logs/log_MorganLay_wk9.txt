@@ -1,0 +1,1 @@
+Worked on weather implementation and setting up data for backend communication
