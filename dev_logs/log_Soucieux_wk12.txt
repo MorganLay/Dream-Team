@@ -1,0 +1,2 @@
+Working on to get permissions from users.
+Users need to verify their email when registered.

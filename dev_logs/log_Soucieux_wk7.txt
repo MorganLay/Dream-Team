@@ -1,1 +1,2 @@
 Study how firebase works and start to work on stroing user info securely.
+Implement firebase API.
