@@ -3,13 +3,11 @@ package com.example.alphadrawer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.alphadrawer.ui.login.LoginFragment;
 import com.example.alphadrawer.ui.newAccount.newAccountFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,18 +29,19 @@ public class NewAccountActivity extends AppCompatActivity {
 
     public void newAccount(String userName, String email, String password){
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            Toast.makeText(NewAccountActivity.this, "Account created successfully",
-                                    Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(NewAccountActivity.this, MainActivity.class));
-                        } else {
-                            Toast.makeText(NewAccountActivity.this, "Email address exists, you can login directly",
-                                    Toast.LENGTH_LONG).show();
-                        }
-
+                .addOnCompleteListener(this, task -> {
+                    if(task.isSuccessful()) {
+                        Toast.makeText(NewAccountActivity.this, "Account created successfully",
+                                Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(NewAccountActivity.this, MainActivity.class);
+                        Boolean user = true;
+                        intent.putExtra("user", user);
+                        intent.putExtra("userName", userName);
+                        intent.putExtra("email", email);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(NewAccountActivity.this, "Email address exists, you can login directly",
+                                Toast.LENGTH_LONG).show();
                     }
                 });
     }

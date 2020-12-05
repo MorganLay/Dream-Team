@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             MenuItem logout = menu.findItem(R.id.action_userLogout);
             MenuItem guestSignIn = menu.findItem(R.id.action_guestSignIn);
             MenuItem settings = menu.findItem(R.id.action_settings);
-            if (extras.getBoolean("user") == true) {
+            if (extras.getBoolean("user")) {
                 logout.setVisible(true);
                 guestSignIn.setVisible(false);
                 settings.setVisible(true);
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     ((TextView) findViewById(R.id.emailAddress)).setText(email);
                 }
 
-            } else if (extras.getBoolean("user") == false) {
+            } else if (!extras.getBoolean("user")) {
                 logout.setVisible(false);
                 guestSignIn.setVisible(true);
                 settings.setVisible(false);
