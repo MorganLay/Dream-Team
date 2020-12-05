@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.alphadrawer.LoginActivity;
 import com.example.alphadrawer.MainActivity;
+import com.example.alphadrawer.NewAccountActivity;
 import com.example.alphadrawer.R;
 import com.example.alphadrawer.ui.login.AccountFormState;
 import com.example.alphadrawer.ui.login.LoginResult;
@@ -35,15 +36,7 @@ import com.example.alphadrawer.ui.login.LoginResult;
 public class newAccountFragment extends Fragment {
 
     private newAccountViewModel newAccountViewModel;
-    private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
-
-    public static newAccountFragment newInstance() {
-        return new newAccountFragment();
-    }
-
-    LiveData<LoginResult> getLoginResult() {
-        return loginResult;
-    }
+    private boolean checkAll = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -55,17 +48,8 @@ public class newAccountFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final TextView goBackToLogin = view.findViewById(R.id.goBackToLogin);
-
         newAccountViewModel = new ViewModelProvider(this, new newAccountViewModelFactory())
                 .get(newAccountViewModel.class);
-
-        goBackToLogin.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent(getContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
 
         final EditText emailEditText = view.findViewById(R.id.newAccountEmail);
         final EditText nameEditText = view.findViewById(R.id.newAccountName);
@@ -78,7 +62,7 @@ public class newAccountFragment extends Fragment {
                 if (loginFormState == null) {
                     return;
                 }
-                accountCreatedButton.setEnabled(loginFormState.isDataValid());
+                checkAll = loginFormState.isDataValid();
                 if (loginFormState.getEmailError() != null) {
                     emailEditText.setError(getString(loginFormState.getEmailError()));
                 }
@@ -116,13 +100,21 @@ public class newAccountFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                newAccountViewModel.loginDataChanged(emailEditText.getText().toString(),
-                        passwordEditText.getText().toString(), nameEditText.getText().toString());
+                if(!nameEditText.getText().toString().isEmpty()) {
+                    newAccountViewModel.isUserNameValid(nameEditText.getText().toString());
+                }
+                if(!emailEditText.getText().toString().isEmpty()) {
+                    newAccountViewModel.isUserEmailValid(emailEditText.getText().toString());
+                }
+                if(!passwordEditText.getText().toString().isEmpty()) {
+                    newAccountViewModel.isPasswordValid(passwordEditText.getText().toString());
+                }
             }
         };
         emailEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
         nameEditText.addTextChangedListener(afterTextChangedListener);
+
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
@@ -139,14 +131,13 @@ public class newAccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 newAccountViewModel.login(emailEditText.getText().toString(), passwordEditText.getText().toString());
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                Boolean user = true;
-                String userName = nameEditText.getText().toString();
-                String email = emailEditText.getText().toString();
-                intent.putExtra("user", user);
-                intent.putExtra("userName", userName);
-                intent.putExtra("email", email);
-                startActivity(intent);
+                newAccountViewModel.loginDataChanged(emailEditText.getText().toString(),
+                        passwordEditText.getText().toString(), nameEditText.getText().toString());
+                if(checkAll) {
+                    ((NewAccountActivity) getActivity()).newAccount(nameEditText.getText().toString(),
+                            emailEditText.getText().toString(),
+                            passwordEditText.getText().toString());
+                }
             }
         });
     }

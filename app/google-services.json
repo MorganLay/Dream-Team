@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "181038478354",
+    "project_id": "simply-active-5d424",
+    "storage_bucket": "simply-active-5d424.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181038478354:android:c105637dc1ffb25aa5d4cb",
+        "android_client_info": {
+          "package_name": "com.example.alphadrawer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181038478354-roeq147fona3rlpvdh9u8n1oh7rasgro.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPtRuh-LNffoa7kDiHDYfsbN68YEVuhPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "181038478354-roeq147fona3rlpvdh9u8n1oh7rasgro.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

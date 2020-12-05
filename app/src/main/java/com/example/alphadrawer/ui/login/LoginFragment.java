@@ -46,7 +46,6 @@ public class LoginFragment extends Fragment {
         final EditText emailEditText = view.findViewById(R.id.email);
         final EditText passwordEditText = view.findViewById(R.id.password);
         final Button loginButton = view.findViewById(R.id.signIn);
-        final Button signUpButton  = view.findViewById(R.id.signUp);
 
         loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<AccountFormState>() {
             @Override
@@ -120,16 +119,6 @@ public class LoginFragment extends Fragment {
                     intent.putExtra("email", email);
                     startActivity(intent);
                 }
-            }
-        });
-
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                newAccountFragment nextFrag= new newAccountFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.nav_host_fragment, nextFrag)
-                        .commit();
             }
         });
     }

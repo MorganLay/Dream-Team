@@ -58,4 +58,7 @@
     <string name="newAccountActivityLabel">What are your favourites? (Optional)</string>
     <string name="newAccountButton">Let\'s get started!</string>
     <string name="goBackToLogin"><u>Already have an account?</u></string>
+    <string name="title_activity_login">login</string>
+    <string name="title_activity_main">main</string>
+    <string name="title_activity_newaccount">newaccount</string>
 </resources>

@@ -50,11 +50,15 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="Simply Active"
+            android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NewAccountActivity"
+            android:label="@string/title_activity_newaccount"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

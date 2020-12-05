@@ -44,35 +44,38 @@ public class newAccountViewModel extends ViewModel {
     }
 
     public void loginDataChanged(String email, String password, String userName) {
-        if (!isUserEmailValid(email)) {
-            loginFormState.setValue(new AccountFormState(R.string.invalid_userEmail, null, null));
-        }else if (!isPasswordValid(password)) {
-            loginFormState.setValue(new AccountFormState(null, R.string.invalid_password, null));
-        }else if (!isUserNameValid(userName)) {
-            loginFormState.setValue(new AccountFormState(null, null, R.string.invalid_userName));
-        }
-        else {
+        Boolean userNameValid = isUserNameValid(userName);
+        Boolean emailValid = isUserEmailValid(email);
+        Boolean passwordValid = isPasswordValid(password);
+        if(userNameValid && emailValid && passwordValid) {
             loginFormState.setValue(new AccountFormState(true, false));
         }
     }
 
-    // A placeholder email validation check
-    private boolean isUserEmailValid(String email) {
-        if (email == null) {
-            return false;
-        }
-        if (!email.contains("@") || !email.contains(".com")) {
-            return false;
+    public boolean isUserEmailValid(String email) {
+        if (email != null && email.contains("@") && email.contains(".com") && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            return true;
         } else {
-            return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+            loginFormState.setValue(new AccountFormState(R.string.invalid_userEmail, null, null));
+            return false;
         }
     }
 
-    private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 8;
+    public boolean isPasswordValid(String password) {
+        if(password != null && password.trim().length() > 8) {
+            return true;
+        } else {
+            loginFormState.setValue(new AccountFormState(null, R.string.invalid_password, null));
+            return false;
+        }
     }
 
-    private boolean isUserNameValid(String userName) {
-        return userName != null && !userName.isEmpty();
+    public boolean isUserNameValid(String userName) {
+        if(userName != null && !userName.isEmpty()) {
+            return true;
+        } else {
+            loginFormState.setValue(new AccountFormState(null, null, R.string.invalid_userName));
+            return false;
+        }
     }
 }
