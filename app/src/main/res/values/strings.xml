@@ -61,4 +61,6 @@
     <string name="title_activity_login">login</string>
     <string name="title_activity_main">main</string>
     <string name="title_activity_newaccount">newaccount</string>
+    <string name="weatherAPIurl">https://api.openweathermap.org/data/2.5/weather?q=</string>
+    <string name="weatherAPIkey">30a5c6361df186b883b3821bbe2a3915</string>
 </resources>
