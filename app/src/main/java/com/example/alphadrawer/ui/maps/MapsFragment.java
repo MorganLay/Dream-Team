@@ -2,16 +2,22 @@ package com.example.alphadrawer.ui.maps;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -32,6 +38,9 @@ public class MapsFragment extends Fragment {
     GoogleMap mMap;
     ArrayList<LatLng> locations = new ArrayList<>();
     ArrayList<String> locationNames = new ArrayList<>();
+    private FusedLocationProviderClient client;
+    private Location location;
+    private double lat, lng = 0;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -50,14 +59,38 @@ public class MapsFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
 
+
             mMap = googleMap;
 
             // Default location if the user doesn't configure their settings        -------- In the future, make an if statement to check if a value in values is configured to the user. Make a file that stores user held data. ------
 
+            double latitude = 45.425446;
+            double longitude = -75.692375;
+
+
+            if (ActivityCompat.checkSelfPermission(getContext(),
+                    android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(getContext(),
+                            android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(
+                        new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                                android.Manifest.permission.ACCESS_FINE_LOCATION},8000);
+            } else {
+                System.out.println("Location is granted");
+                mMap.setMyLocationEnabled(true);
+                Criteria criteria = new Criteria();
+                LocationManager locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
+                String provider = locationManager.getBestProvider(criteria, true);
+                Location location = locationManager.getLastKnownLocation(provider);
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+
             for(int i = 0; i < locations.size();i++){
                 mMap.addMarker(new MarkerOptions().position(locations.get(i)).title(locationNames.get(i)));
             }
-            LatLng ottawa = new LatLng(45.42, -75.69);
+            System.out.println("This seems to have worked, wow ");
+            LatLng ottawa = new LatLng(latitude, longitude);
             mMap.addMarker(new MarkerOptions().position(ottawa).title("Marker in Ottawa"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(ottawa));
 
