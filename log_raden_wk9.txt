@@ -1,0 +1,1 @@
+Didn't do too much this week again, tried to understand Firebase APIs, and FusedLocationService API's to implement in the near future to make location fully functional
