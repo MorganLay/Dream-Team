@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MapsFragment extends Fragment {
 
@@ -68,9 +69,9 @@ public class MapsFragment extends Fragment {
             double longitude = -75.692375;
 
 
-            if (ActivityCompat.checkSelfPermission(getContext(),
+            if (ActivityCompat.checkSelfPermission(requireContext(),
                     android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(getContext(),
+                    ActivityCompat.checkSelfPermission(requireContext(),
                             android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(
                         new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION,
@@ -79,7 +80,8 @@ public class MapsFragment extends Fragment {
                 System.out.println("Location is granted");
                 mMap.setMyLocationEnabled(true);
                 Criteria criteria = new Criteria();
-                LocationManager locationManager = (LocationManager) getContext().getSystemService(getContext().LOCATION_SERVICE);
+                getContext();
+                LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
                 String provider = locationManager.getBestProvider(criteria, true);
                 Location location = locationManager.getLastKnownLocation(provider);
                 latitude = location.getLatitude();
@@ -106,6 +108,7 @@ public class MapsFragment extends Fragment {
                              Bundle savedInstanceState) {
         try {
 
+          //S  assert getArguments() != null;
             int value = getArguments().getInt("max");
             System.out.println("Maps printing");
             System.out.println(value);
