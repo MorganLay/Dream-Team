@@ -7,7 +7,6 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -16,14 +15,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.alphadrawer.NewAccountActivity;
 import com.example.alphadrawer.R;
 import com.example.alphadrawer.ui.login.AccountFormState;
 
 public class newAccountFragment extends Fragment {
-    private MutableLiveData<AccountFormState> loginFormState = new MutableLiveData<>();
+    private final MutableLiveData<AccountFormState> loginFormState = new MutableLiveData<>();
     private LiveData<AccountFormState> getLoginFormState() {
         return loginFormState;
     }
