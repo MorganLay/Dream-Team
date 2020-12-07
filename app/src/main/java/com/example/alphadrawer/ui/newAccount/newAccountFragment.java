@@ -104,7 +104,7 @@ public class newAccountFragment extends Fragment {
         Boolean emailValid = isUserEmailValid(email);
         Boolean passwordValid = isPasswordValid(password);
         if(userNameValid && emailValid && passwordValid) {
-            loginFormState.setValue(new AccountFormState(true, false));
+            loginFormState.setValue(new AccountFormState(true));
         }
     }
 

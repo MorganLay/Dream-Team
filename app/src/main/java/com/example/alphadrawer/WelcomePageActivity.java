@@ -17,14 +17,8 @@ public class WelcomePageActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser loggedIn = auth.getCurrentUser();
         if(loggedIn != null){
-            Intent intent = new Intent(WelcomePageActivity.this, MainActivity.class);
-            Boolean user = true;
-            String email = loggedIn.getEmail();
-            intent.putExtra("user", user);
-            intent.putExtra("email", email);
-            startActivity(intent);
+            startActivity(new Intent(WelcomePageActivity.this, MainActivity.class));
         }
-
         setContentView(R.layout.activity_welcome_page);
     }
 

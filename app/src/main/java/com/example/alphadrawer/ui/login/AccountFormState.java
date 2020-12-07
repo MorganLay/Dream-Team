@@ -27,12 +27,7 @@ public class AccountFormState {
         this.isDataValid = false;
     }
 
-    public AccountFormState(boolean isDataValid, boolean login) {
-        if (!login) {
-            this.userNameError = null;
-        }
-        this.emailError = null;
-        this.passwordError = null;
+    public AccountFormState(boolean isDataValid) {
         this.isDataValid = isDataValid;
     }
 

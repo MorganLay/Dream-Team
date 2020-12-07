@@ -17,6 +17,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.alphadrawer.LoginActivity;
+import com.example.alphadrawer.NewAccountActivity;
 import com.example.alphadrawer.R;
 
 public class LoginFragment extends Fragment {
@@ -76,21 +78,25 @@ public class LoginFragment extends Fragment {
         passwordEditText.addTextChangedListener(afterTextChangedListener);
 
         loginButton.setOnClickListener(v -> {
-            //TODO
+            if(!isUserEmailValid(emailEditText.getText().toString())) {
+                loginFormState.setValue(new AccountFormState(R.string.invalid_userEmail, null));
+            } else {
+                ((LoginActivity) getActivity()).logIn(emailEditText.getText().toString(),
+                        passwordEditText.getText().toString());
+            }
         });
     }
 
     private void loginDataChanged(String email, String password) {
-        if (!isUserNameValid(email)) {
-            loginFormState.setValue(new AccountFormState(R.string.invalid_userEmail, null));
-        }
-        else {
-            loginFormState.setValue(new AccountFormState(true, true));
+        if (email.isEmpty() || password.isEmpty()) {
+            loginFormState.setValue(new AccountFormState(null, null));
+        } else {
+            loginFormState.setValue(new AccountFormState(true));
         }
     }
 
-    // A placeholder email validation check
-    private boolean isUserNameValid(String email) {
+
+    private boolean isUserEmailValid(String email) {
         if (email == null) {
             return false;
         }

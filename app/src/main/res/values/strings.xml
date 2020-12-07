@@ -22,6 +22,7 @@
     <string name="welcome">"Welcome!"</string>
     <string name="invalid_userEmail">Email address not valid</string>
     <string name="invalid_password">Password must be >8 characters</string>
+    <string name="empty_password">Enter password</string>
     <string name="login_failed">"Login failed"</string>
     <string name="login_username_label">Email</string>
     <string name="login_password_label">Password</string>
