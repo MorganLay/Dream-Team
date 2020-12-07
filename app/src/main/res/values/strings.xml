@@ -35,7 +35,7 @@
     <string name="nameLabel">Simply Active</string>
     <string name="slogan">Your Personal Exercise Assistant</string>
     <string name="logInOrSignUp">Sign In / Sign up for FREE</string>
-    <string name="guest">Want to check out first? No worries!</string>
+    <string name="guest">Want to try it out first? No worries!</string>
     <string name="guestLogIn">Continue as guest</string>
     <string name="action_guestSignIn">Sign In</string>
     <string name="title_activity_settings">Settings</string>
