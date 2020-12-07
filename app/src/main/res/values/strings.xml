@@ -28,7 +28,7 @@
     <string name="createNewAccount">Create new account</string>
     <string name="action_sign_up">Sign Up with only 1 step</string>
     <string name="forgotPassword">Forgot password?</string>
-    <string name="invalid_userName">Please enter a nick name</string>
+    <string name="invalid_userName">Please enter your name</string>
     <!-- Welcome Page -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcomeLabel">Welcome to</string>
@@ -74,4 +74,11 @@
     <string name="first_box">FIRST_BOX</string>
     <string name="second_box">SECOND_BOX</string>
     <string name="third_box">THIRD_BOX</string>
+    <!--Preference-->
+    <string name="prefButtonText">Save</string>
+    <!--Profile-->
+    <string name="ProfileName">Name</string>
+    <string name="ProfileAge">Age</string>
+    <string name="ProfileAdd">Add</string>
+    <string name="ProfileGender">Gender</string>
 </resources>

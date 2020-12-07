@@ -169,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
                                 if (user.getKey().equals(userId)) {
                                     user currentUser = user.getValue(user.class);
                                     ((TextView) findViewById(R.id.userName)).setText(currentUser.username);
-                                    ((TextView) findViewById(R.id.emailAddress)).setText(currentUser.email);
                                 }
                             }
                         }
@@ -189,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
             settings.setVisible(false);
 
             ((TextView) findViewById(R.id.userName)).setText("Guest");
-            ((TextView) findViewById(R.id.emailAddress)).setText("Not Registered");
         }
         return true;
     }
