@@ -63,11 +63,15 @@
     <string name="title_activity_newaccount">newaccount</string>
     <string name="weatherAPIurl">https://api.openweathermap.org/data/2.5/weather?q=</string>
     <string name="weatherAPIkey">30a5c6361df186b883b3821bbe2a3915</string>
-    <!-- Preferences -->
-    <string name="prefButtonText">Save</string>
-    <!-- Profile -->
-    <string name="ProfileName">Name</string>
-    <string name="ProfileAdd">Address</string>
-    <string name="ProfileGender">Gender</string>
-    <string name="ProfileAge">Age</string>
+    <string name="weatherMessage">Hello, today is a nice day to go outside!</string>
+    <string name="weatherTemperature">20°C</string>
+    <string name="weatherPictureDescription">Icon showing the weather today</string>
+    <string name="defaultDate">December 7th, 2020</string>
+    <string name="recommendationMessage">Based on your profile, you may like the following activities:</string>
+    <string name="hiking">HIKING</string>
+    <string name="swimming">SWIMMING</string>
+    <string name="tennis">TENNIS</string>
+    <string name="first_box">FIRST_BOX</string>
+    <string name="second_box">SECOND_BOX</string>
+    <string name="third_box">THIRD_BOX</string>
 </resources>
