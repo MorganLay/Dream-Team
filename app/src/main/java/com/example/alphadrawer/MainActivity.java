@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private FusedLocationProviderClient client;
-    private FirebaseAuth auth;
     private DatabaseReference database;
     private Location location;
     private double lat, lng = 0;
@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance().getReference();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -151,12 +150,14 @@ public class MainActivity extends AppCompatActivity {
         MenuItem guestSignIn = menu.findItem(R.id.action_guestSignIn);
         MenuItem settings = menu.findItem(R.id.action_settings);
 
-        if (auth.getCurrentUser() != null) {
+        Bundle data = getIntent().getExtras();
+        FirebaseUser user = (FirebaseUser) data.get("user");
+        if (user != null && !user.getEmail().isEmpty()) {
             logout.setVisible(true);
             guestSignIn.setVisible(false);
             settings.setVisible(true);
 
-            String userId = auth.getCurrentUser().getUid();
+            String userId = user.getUid();
 
             ValueEventListener postListener = new ValueEventListener() {
                 @Override
@@ -177,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    //Ignore
                 }
             };
             database.addValueEventListener(postListener);

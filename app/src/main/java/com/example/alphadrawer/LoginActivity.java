@@ -35,17 +35,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void logIn(String email, String password) {
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Log.d(TAG, "Log in successfully");
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                } else {
-                    Log.d(TAG, "Login failed");
-                    Toast.makeText(LoginActivity.this, "Incorrect password. Please try again.",
-                    Toast.LENGTH_SHORT).show();
-                }
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
+            if (task.isSuccessful()) {
+                Log.d(TAG, "Log in successfully");
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("user", auth.getCurrentUser());
+                startActivity(intent);
+            } else {
+                Log.d(TAG, "Login failed");
+                Toast.makeText(LoginActivity.this, "Incorrect email or password. Please try again.",
+                Toast.LENGTH_SHORT).show();
             }
         });
     }

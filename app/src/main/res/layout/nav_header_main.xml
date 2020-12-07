@@ -29,11 +29,11 @@
 
     <TextView
         android:id="@+id/userName"
-        android:layout_width="117dp"
-        android:layout_height="84dp"
+        android:layout_width="118dp"
+        android:layout_height="65dp"
         android:layout_marginStart="136dp"
         android:layout_marginLeft="136dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="92dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/nav_header_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"

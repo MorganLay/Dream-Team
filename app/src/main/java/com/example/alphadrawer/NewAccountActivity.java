@@ -38,7 +38,9 @@ public class NewAccountActivity extends AppCompatActivity {
                         user newUser = new user(userName, email);
                         String userId = mAuth.getCurrentUser().getUid();
                         database.child("users").child(userId).setValue(newUser);
-                        startActivity(new Intent(NewAccountActivity.this, MainActivity.class));
+                        Intent intent = new Intent(NewAccountActivity.this, MainActivity.class);
+                        intent.putExtra("user", mAuth.getCurrentUser());
+                        startActivity(intent);
                     } else {
                         Toast.makeText(NewAccountActivity.this, "Email address exists, you can login directly",
                                 Toast.LENGTH_SHORT).show();
