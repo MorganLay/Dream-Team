@@ -89,4 +89,8 @@ public class HomeFragment extends Fragment {
         queue.add(j_req);
     }
 
+    public int convertToCelsius(long kelvin){
+        return (int) Math.round(kelvin - 273.15);
+    }
+
 }
