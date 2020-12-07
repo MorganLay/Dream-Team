@@ -83,9 +83,9 @@ public class MapsFragment extends Fragment {
                 getContext();
                 LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
                 String provider = locationManager.getBestProvider(criteria, true);
-                Location location = locationManager.getLastKnownLocation(provider);
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
+                Location locationH = locationManager.getLastKnownLocation(provider);
+                latitude = locationH.getLatitude();
+                longitude = locationH.getLongitude();
             }
 
             for(int i = 0; i < locations.size();i++){

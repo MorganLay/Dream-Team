@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.alphadrawer.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class PreferencesFragment extends Fragment {
 
@@ -21,6 +24,9 @@ public class PreferencesFragment extends Fragment {
 
     TextView tvProgressLabel;
     TextView TvProgressLabel2;
+    DatabaseReference reff;
+    Button saveButton;
+    Preferences preferences;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +52,21 @@ public class PreferencesFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
+            }
+        });
+
+
+        preferences = new Preferences();
+        reff = FirebaseDatabase.getInstance().getReference().child("Preferences");
+        saveButton = root.findViewById(R.id.preferences_submit_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                preferences.setRad(seekBar.getProgress());
+                preferences.setResults(seekBar2.getProgress());
+                preferences.setlat(1.1111);
+                preferences.setlng(2.2222);
+                reff.child("info1").setValue(preferences);
             }
         });
         return root;

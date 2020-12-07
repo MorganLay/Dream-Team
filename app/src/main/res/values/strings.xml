@@ -63,4 +63,11 @@
     <string name="title_activity_newaccount">newaccount</string>
     <string name="weatherAPIurl">https://api.openweathermap.org/data/2.5/weather?q=</string>
     <string name="weatherAPIkey">30a5c6361df186b883b3821bbe2a3915</string>
+    <!-- Preferences -->
+    <string name="prefButtonText">Save</string>
+    <!-- Profile -->
+    <string name="ProfileName">Name</string>
+    <string name="ProfileAdd">Address</string>
+    <string name="ProfileGender">Gender</string>
+    <string name="ProfileAge">Age</string>
 </resources>
