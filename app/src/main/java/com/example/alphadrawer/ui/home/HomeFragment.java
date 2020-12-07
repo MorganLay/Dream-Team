@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
+import java.util.Calendar;
 
 public class HomeFragment extends Fragment {
 
@@ -34,14 +39,19 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        //final TextView textView = root.findViewById(R.id.text_home);
-        //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         findWeather();
-
-        return root;
     }
+
+
+
 
     /*
         Returns the valid API url based on the desired city and country
@@ -67,19 +77,19 @@ public class HomeFragment extends Fragment {
             try {
                 // On a successful response from the API, handle the JSON response
 
-                System.out.println("THIS WAS DEFINITELY ATTMEPTED");
-
                 JSONObject mainObj = response.getJSONObject("main");         // Main JSON
                 JSONArray arr = response.getJSONArray("weather");
                 JSONObject obj = arr.getJSONObject(0);
                 String temp = String.valueOf(mainObj.getDouble("temp"));     // Gets the temperature
-                String description = obj.getString("description");
-                String city = response.getString("name");
+                String desc = obj.getString("description");
+                String cit = response.getString("name");
 
-                System.out.println("The weather in " + city + " is " + temp);
+                System.out.println("The weather in " + cit + " is " + temp);
+
+                // Changes the weather in the app
+                updateWeather(temp, desc, cit);
 
             } catch (JSONException e) {
-                System.out.println("FAILEDDDDDDDD");
                 e.printStackTrace();
             }
         }, error -> System.out.println("THIS WAS DEFINITELY NOTTTTTTTT ATTMEPTED")
@@ -89,8 +99,55 @@ public class HomeFragment extends Fragment {
         queue.add(j_req);
     }
 
-    public int convertToCelsius(long kelvin){
+    public int convertToCelsius(double kelvin){
         return (int) Math.round(kelvin - 273.15);
+    }
+
+    public void updateWeather(String t, String d, String c){
+
+        TextView tempView =  this.requireView().findViewById(R.id.weatherTemp);         // Temperature
+        ImageView imageView =  this.requireView().findViewById(R.id.weatherSymbol);     // Weather image
+
+        int temp = convertToCelsius(Double.parseDouble(t));
+
+        System.out.println("We are in update weather and::: " + d);
+
+        imageView.setImageResource(getWeatherImage(d, temp));
+        tempView.setText(temp + "°C");
+
+    }
+
+
+    private int getWeatherImage(String desc, int temp){
+        int imageSource = R.drawable.sun;
+
+        Date currentTime = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        String strDate = dateFormat.format(currentTime);
+
+        boolean daytime = true;
+
+        int hourA = Integer.parseInt(String.valueOf(strDate.charAt(11)));
+        int hourB = Integer.parseInt(String.valueOf(strDate.charAt(12)));
+
+        // Setting weather pic
+        if((hourA == 0 && hourB < 8) || (hourA == 1 && hourB > 9) || hourA == 2){
+            daytime = false;
+        } else if (desc.contains("cloud")){
+            imageSource = R.drawable.cloud;
+        } else if (desc.contains("rain") || desc.contains("drizzle")){
+            imageSource = R.drawable.rain;
+        } else if (desc.contains("thunder")){
+            imageSource = R.drawable.thunder;
+        } else if (desc.contains("snow") || desc.contains("sleet")){
+            imageSource = R.drawable.snow;
+        }
+
+        if(!daytime){
+            imageSource = R.drawable.moon;
+        }
+
+        return imageSource;
     }
 
 }
