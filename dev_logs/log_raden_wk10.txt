@@ -1,0 +1,1 @@
+Tried to implement FusedLocationService API, and was not entirely successful, as well as tried to use the firebase API created by Lyndon to pass information from fragment to fragment.

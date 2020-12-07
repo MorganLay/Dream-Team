@@ -1,0 +1,1 @@
+Designed a basic maps fragment, but without Google maps API working. Started making it extendable for the search fragment. Worked on D2 submission

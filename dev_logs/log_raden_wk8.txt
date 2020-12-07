@@ -1,0 +1,3 @@
+Worked on D3 submissions file as well as creating diagrams needed for submissions. 
+
+Kept trying to make sure the markers and search function were more refined in the application for presentation.

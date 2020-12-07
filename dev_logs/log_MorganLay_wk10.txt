@@ -1,0 +1,1 @@
+Got weather API fully dynamicaly working with both static location and GPS, plus welcome page redesign

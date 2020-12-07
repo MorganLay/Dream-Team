@@ -1,0 +1,1 @@
+Implemented FusedLocationService and Location is now fully functional. However, still currently trying to make sure passing information from Firebase to firebase is working.
