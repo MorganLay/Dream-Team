@@ -47,9 +47,13 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        findWeather();
     }
 
+    @Override
+    public void onResume() {
+        findWeather();
+        super.onResume();
+    }
 
 
 
@@ -106,15 +110,17 @@ public class HomeFragment extends Fragment {
     public void updateWeather(String t, String d, String c){
 
         TextView tempView =  this.requireView().findViewById(R.id.weatherTemp);         // Temperature
+        TextView descView =  this.requireView().findViewById(R.id.weatherDesc);         // Description of the weather
         ImageView imageView =  this.requireView().findViewById(R.id.weatherSymbol);     // Weather image
 
         int temp = convertToCelsius(Double.parseDouble(t));
+        String proper = convertToTitleCaseIteratingChars(d);
 
         System.out.println("We are in update weather and::: " + d);
 
         imageView.setImageResource(getWeatherImage(d, temp));
         tempView.setText(temp + "°C");
-
+        descView.setText(proper);
     }
 
 
@@ -148,6 +154,34 @@ public class HomeFragment extends Fragment {
         }
 
         return imageSource;
+    }
+
+    /*
+        https://www.baeldung.com/java-string-title-case
+        Used this resource instead of importing a library. All credit goes to Marcos Lopez Gonzalez
+        The function is merely used to make characters capitalized for aesthetic purposes and doesn't affect any functionality.
+     */
+    public static String convertToTitleCaseIteratingChars(String text) {
+        if (text == null || text.isEmpty()) {
+            return text;
+        }
+
+        StringBuilder converted = new StringBuilder();
+
+        boolean convertNext = true;
+        for (char ch : text.toCharArray()) {
+            if (Character.isSpaceChar(ch)) {
+                convertNext = true;
+            } else if (convertNext) {
+                ch = Character.toTitleCase(ch);
+                convertNext = false;
+            } else {
+                ch = Character.toLowerCase(ch);
+            }
+            converted.append(ch);
+        }
+
+        return converted.toString();
     }
 
 }
