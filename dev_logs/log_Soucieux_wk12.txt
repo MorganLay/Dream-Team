@@ -1,2 +1,2 @@
-Working on to get permissions from users.
+allow anonymous login for users dont want to login.
 Users need to verify their email when registered.
