@@ -63,4 +63,8 @@
     <string name="title_activity_newaccount">newaccount</string>
     <string name="weatherAPIurl">https://api.openweathermap.org/data/2.5/weather?q=</string>
     <string name="weatherAPIkey">30a5c6361df186b883b3821bbe2a3915</string>
+    <string name="weatherMessage">Hello, today is a nice day to go outside!</string>
+    <string name="weatherTemperature">20°C</string>
+    <string name="weatherPictureDescription">Icon showing the weather today</string>
+    <string name="defaultDate">December 7th, 2020</string>
 </resources>
