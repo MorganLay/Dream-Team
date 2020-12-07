@@ -48,34 +48,19 @@ public class newAccountFragment extends Fragment {
         final EditText passwordEditText = view.findViewById(R.id.newAccountPassword);
         final Button accountCreatedButton = view.findViewById(R.id.newAccountButton);
 
-        newAccountViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<AccountFormState>() {
-            @Override
-            public void onChanged(@Nullable AccountFormState loginFormState) {
-                if (loginFormState == null) {
-                    return;
-                }
-                checkAll = loginFormState.isDataValid();
-                if (loginFormState.getEmailError() != null) {
-                    emailEditText.setError(getString(loginFormState.getEmailError()));
-                }
-                if (loginFormState.getPasswordError() != null) {
-                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
-                }
-                if (loginFormState.getUserNameError() != null) {
-                    nameEditText.setError(getString(loginFormState.getUserNameError()));
-                }
+        newAccountViewModel.getLoginFormState().observe(getViewLifecycleOwner(), loginFormState -> {
+            if (loginFormState == null) {
+                return;
             }
-        });
-
-        newAccountViewModel.getLoginResult().observe(getViewLifecycleOwner(), new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
+            checkAll = loginFormState.isDataValid();
+            if (loginFormState.getEmailError() != null) {
+                emailEditText.setError(getString(loginFormState.getEmailError()));
+            }
+            if (loginFormState.getPasswordError() != null) {
+                passwordEditText.setError(getString(loginFormState.getPasswordError()));
+            }
+            if (loginFormState.getUserNameError() != null) {
+                nameEditText.setError(getString(loginFormState.getUserNameError()));
             }
         });
 
@@ -107,40 +92,24 @@ public class newAccountFragment extends Fragment {
         passwordEditText.addTextChangedListener(afterTextChangedListener);
         nameEditText.addTextChangedListener(afterTextChangedListener);
 
-        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    newAccountViewModel.login(emailEditText.getText().toString(),
-                            passwordEditText.getText().toString());
-                }
-                return false;
+        passwordEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                newAccountViewModel.login(emailEditText.getText().toString(),
+                        passwordEditText.getText().toString());
             }
+            return false;
         });
 
-        accountCreatedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                newAccountViewModel.login(emailEditText.getText().toString(), passwordEditText.getText().toString());
-                newAccountViewModel.loginDataChanged(emailEditText.getText().toString(),
-                        passwordEditText.getText().toString(), nameEditText.getText().toString());
-                if(checkAll) {
-                    ((NewAccountActivity) getActivity()).newAccount(nameEditText.getText().toString(),
-                            emailEditText.getText().toString(),
-                            passwordEditText.getText().toString());
-                }
+        accountCreatedButton.setOnClickListener(v -> {
+            newAccountViewModel.login(emailEditText.getText().toString(), passwordEditText.getText().toString());
+            newAccountViewModel.loginDataChanged(emailEditText.getText().toString(),
+                    passwordEditText.getText().toString(), nameEditText.getText().toString());
+            if(checkAll) {
+                ((NewAccountActivity) getActivity()).newAccount(nameEditText.getText().toString(),
+                        emailEditText.getText().toString(),
+                        passwordEditText.getText().toString());
             }
         });
-    }
-
-    private void showLoginFailed(@StringRes Integer errorString) {
-        if (getContext() != null && getContext().getApplicationContext() != null) {
-            Toast.makeText(
-                    getContext().getApplicationContext(),
-                    errorString,
-                    Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override
