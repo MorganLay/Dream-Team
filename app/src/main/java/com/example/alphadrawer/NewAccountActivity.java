@@ -25,7 +25,7 @@ public class NewAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance().getReference();
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.app_content_main);
         newAccountFragment newAccountFragment = new newAccountFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, newAccountFragment).commit();
     }

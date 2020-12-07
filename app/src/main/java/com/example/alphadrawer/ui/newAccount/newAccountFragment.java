@@ -30,7 +30,7 @@ public class newAccountFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.new_account_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_new_account, container, false);
     }
 
     @Override

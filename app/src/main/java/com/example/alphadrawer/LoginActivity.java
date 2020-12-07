@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.app_content_main);
         auth = FirebaseAuth.getInstance();
         LoginFragment loginFragment = new LoginFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, loginFragment).commit();

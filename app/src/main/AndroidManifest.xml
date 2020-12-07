@@ -58,7 +58,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NewAccountActivity"
-            android:label="@string/title_activity_newaccount"
+            android:label="@string/title_activity_newAccount"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
