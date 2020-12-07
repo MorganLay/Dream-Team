@@ -28,6 +28,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -118,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logOutAction(MenuItem item){
+        FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(MainActivity.this, WelcomePageActivity.class));
     }
 

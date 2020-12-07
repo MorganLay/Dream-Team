@@ -47,31 +47,25 @@ public class LoginFragment extends Fragment {
         final EditText passwordEditText = view.findViewById(R.id.password);
         final Button loginButton = view.findViewById(R.id.signIn);
 
-        loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), new Observer<AccountFormState>() {
-            @Override
-            public void onChanged(@Nullable AccountFormState loginFormState) {
-                if (loginFormState == null) {
-                    return;
-                }
-                loginButton.setEnabled(loginFormState.isDataValid());
-                if (loginFormState.getEmailError() != null) {
-                    emailEditText.setError(getString(loginFormState.getEmailError()));
-                }
-                if (loginFormState.getPasswordError() != null) {
-                    passwordEditText.setError(getString(loginFormState.getPasswordError()));
-                }
+        loginViewModel.getLoginFormState().observe(getViewLifecycleOwner(), loginFormState -> {
+            if (loginFormState == null) {
+                return;
+            }
+            loginButton.setEnabled(loginFormState.isDataValid());
+            if (loginFormState.getEmailError() != null) {
+                emailEditText.setError(getString(loginFormState.getEmailError()));
+            }
+            if (loginFormState.getPasswordError() != null) {
+                passwordEditText.setError(getString(loginFormState.getPasswordError()));
             }
         });
 
-        loginViewModel.getLoginResult().observe(getViewLifecycleOwner(), new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
+        loginViewModel.getLoginResult().observe(getViewLifecycleOwner(), loginResult -> {
+            if (loginResult == null) {
+                return;
+            }
+            if (loginResult.getError() != null) {
+                showLoginFailed(loginResult.getError());
             }
         });
 
@@ -94,31 +88,24 @@ public class LoginFragment extends Fragment {
         };
         emailEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
-        passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(emailEditText.getText().toString(),
-                            passwordEditText.getText().toString());
-                }
-                return false;
-            }
-        });
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        passwordEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
                 loginViewModel.login(emailEditText.getText().toString(),
                         passwordEditText.getText().toString());
-                if(!loginViewModel.getLoginResult().equals(R.string.login_failed)) {
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    Boolean user = true;
-                    String email = emailEditText.getText().toString();
-                    intent.putExtra("user", user);
-                    intent.putExtra("email", email);
-                    startActivity(intent);
-                }
+            }
+            return false;
+        });
+
+        loginButton.setOnClickListener(v -> {
+            loginViewModel.login(emailEditText.getText().toString(),
+                    passwordEditText.getText().toString());
+            //TODO
+            if(!loginViewModel.getLoginResult().equals(R.string.login_failed)) {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                String email = emailEditText.getText().toString();
+                intent.putExtra("user", true);
+                intent.putExtra("email", email);
+                startActivity(intent);
             }
         });
     }

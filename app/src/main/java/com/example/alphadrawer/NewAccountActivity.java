@@ -5,13 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.alphadrawer.ui.newAccount.newAccountFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class NewAccountActivity extends AppCompatActivity {
@@ -34,8 +30,7 @@ public class NewAccountActivity extends AppCompatActivity {
                         Toast.makeText(NewAccountActivity.this, "Account created successfully",
                                 Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(NewAccountActivity.this, MainActivity.class);
-                        Boolean user = true;
-                        intent.putExtra("user", user);
+                        intent.putExtra("user", true);
                         intent.putExtra("userName", userName);
                         intent.putExtra("email", email);
                         startActivity(intent);
