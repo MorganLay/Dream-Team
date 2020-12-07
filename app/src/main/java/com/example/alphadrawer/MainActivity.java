@@ -22,20 +22,32 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.alphadrawer.ui.user.user;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private FusedLocationProviderClient client;
+    private FirebaseAuth auth;
+    private DatabaseReference database;
     private Location location;
     private double lat, lng = 0;
+
+    public MainActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,22 +55,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        auth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance().getReference();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         FirebaseApp.initializeApp(MainActivity.this);
-        Toast.makeText(MainActivity.this,"Firebase success", Toast.LENGTH_LONG).show();
-
-
         client = LocationServices.getFusedLocationProviderClient(this);
 
         if(ActivityCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
 
             getCurrentLocation();
-
-
 
         } else {
 
@@ -81,14 +89,11 @@ public class MainActivity extends AppCompatActivity {
     private void getCurrentLocation() {
         Task<Location> task = client.getLastLocation();
 
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null) {
-                    lat = location.getLatitude();
-                    lng = location.getLongitude();
+        task.addOnSuccessListener(location -> {
+            if (location != null) {
+                lat = location.getLatitude();
+                lng = location.getLongitude();
 
-                }
             }
         });
     }
@@ -118,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logOutAction(MenuItem item){
+        FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(MainActivity.this, WelcomePageActivity.class));
     }
 
@@ -131,35 +137,49 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu){
-        Bundle extras = getIntent().getExtras();
-        if(extras != null) {
-            MenuItem logout = menu.findItem(R.id.action_userLogout);
-            MenuItem guestSignIn = menu.findItem(R.id.action_guestSignIn);
-            MenuItem settings = menu.findItem(R.id.action_settings);
-            if (extras.getBoolean("user")) {
-                logout.setVisible(true);
-                guestSignIn.setVisible(false);
-                settings.setVisible(true);
+        MenuItem logout = menu.findItem(R.id.action_userLogout);
+        MenuItem guestSignIn = menu.findItem(R.id.action_guestSignIn);
+        MenuItem settings = menu.findItem(R.id.action_settings);
 
-                Intent intent = getIntent();
-                String userName = intent.getStringExtra("userName");
-                String email = intent.getStringExtra("email");
-                if(userName != null) {
-                    ((TextView) findViewById(R.id.userName)).setText(userName);
+        if (auth.getCurrentUser() != null) {
+            logout.setVisible(true);
+            guestSignIn.setVisible(false);
+            settings.setVisible(true);
+
+            String userId = auth.getCurrentUser().getUid();
+
+            ValueEventListener postListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Iterable<DataSnapshot> item = dataSnapshot.getChildren();
+                    for(DataSnapshot data : item) {
+                        if (data.getKey().equals("users")) {
+                            Iterable<DataSnapshot> users = data.getChildren();
+                            for (DataSnapshot user : users) {
+                                if (user.getKey().equals(userId)) {
+                                    user currentUser = user.getValue(user.class);
+                                    ((TextView) findViewById(R.id.userName)).setText(currentUser.username);
+                                    ((TextView) findViewById(R.id.emailAddress)).setText(currentUser.email);
+                                }
+                            }
+                        }
+                    }
                 }
-                if(email != null) {
-                    ((TextView) findViewById(R.id.emailAddress)).setText(email);
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
+            };
+            database.addValueEventListener(postListener);
 
-            } else if (!extras.getBoolean("user")) {
-                logout.setVisible(false);
-                guestSignIn.setVisible(true);
-                settings.setVisible(false);
+        } else {
+            logout.setVisible(false);
+            guestSignIn.setVisible(true);
+            settings.setVisible(false);
 
-                ((TextView) findViewById(R.id.userName)).setText("Guest");
-                ((TextView) findViewById(R.id.emailAddress)).setText(" ");
-            }
-
+            ((TextView) findViewById(R.id.userName)).setText("Guest");
+            ((TextView) findViewById(R.id.emailAddress)).setText("Not Registered");
         }
         return true;
     }
