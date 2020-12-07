@@ -67,4 +67,11 @@
     <string name="weatherTemperature">20°C</string>
     <string name="weatherPictureDescription">Icon showing the weather today</string>
     <string name="defaultDate">December 7th, 2020</string>
+    <string name="recommendationMessage">Based on your profile, you may like the following activities:</string>
+    <string name="hiking">HIKING</string>
+    <string name="swimming">SWIMMING</string>
+    <string name="tennis">TENNIS</string>
+    <string name="first_box">FIRST_BOX</string>
+    <string name="second_box">SECOND_BOX</string>
+    <string name="third_box">THIRD_BOX</string>
 </resources>
