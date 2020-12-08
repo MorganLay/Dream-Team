@@ -25,4 +25,12 @@ public class user {
         this.gender = null;
         this.address = null;
     }
+
+    public user(String username, String email, Integer age, String gender, String address){
+        this.username = username;
+        this.email = email;
+        this.age = age;
+        this.gender = gender;
+        this.address = address;
+    }
 }

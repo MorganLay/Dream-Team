@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private FusedLocationProviderClient client;
     private DatabaseReference database;
+    private FirebaseAuth auth;
+    private FirebaseUser firebaseUser;
+    private user currentUser;
     private Location location;
     private double lat, lng = 0;
 
@@ -53,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.app_navigation);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        auth = FirebaseAuth.getInstance();
+        firebaseUser = auth.getCurrentUser();
         database = FirebaseDatabase.getInstance().getReference();
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -192,9 +197,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void retrieveProfile(){
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        String userId = user.getUid();
+        String userId = firebaseUser.getUid();
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -205,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                         Iterable<DataSnapshot> users = data.getChildren();
                         for (DataSnapshot user : users) {
                             if (user.getKey().equals(userId)) {
-                                com.example.alphadrawer.ui.user.user currentUser = user.getValue(user.class);
+                                currentUser = user.getValue(user.class);
                                 if(currentUser.username != null) {
                                     ((TextView) findViewById(R.id.profile_name)).setText(currentUser.username);
                                 }
@@ -213,13 +216,13 @@ public class MainActivity extends AppCompatActivity {
                                     ((TextView) findViewById(R.id.profile_email)).setText(currentUser.email);
                                 }
                                 if(currentUser.age != null) {
-                                    ((TextView) findViewById(R.id.profile_age)).setText(currentUser.username);
+                                    ((TextView) findViewById(R.id.profile_age)).setText(currentUser.age);
                                 }
                                 if(currentUser.gender != null) {
-                                    ((TextView) findViewById(R.id.profile_gender)).setText(currentUser.username);
+                                    ((TextView) findViewById(R.id.profile_gender)).setText(currentUser.gender);
                                 }
                                 if(currentUser.address != null) {
-                                    ((TextView) findViewById(R.id.profile_address)).setText(currentUser.username);
+                                    ((TextView) findViewById(R.id.profile_address)).setText(currentUser.address);
                                 }
                             }
                         }
@@ -232,5 +235,28 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         database.addValueEventListener(postListener);
+    }
+
+    public void UpdateProfile(user userNewInfo) {
+        String userId = firebaseUser.getUid();
+        if(currentUser.username == null ||userNewInfo.username!= null && !currentUser.username.equals(userNewInfo.username)){
+            database.child("users").child(userId).child("username").setValue(userNewInfo.username);
+        }
+
+        if(currentUser.email == null || userNewInfo.email != null && !currentUser.email.equals(userNewInfo.email)){
+            database.child("users").child(userId).child("email").setValue(userNewInfo.email);
+        }
+
+        if(currentUser.age == null ||userNewInfo.age != null && !currentUser.age.equals(userNewInfo.age)){
+            database.child("users").child(userId).child("age").setValue(userNewInfo.age);
+        }
+
+        if(currentUser.gender == null ||userNewInfo.gender != null && !currentUser.gender.equals(userNewInfo.gender)){
+            database.child("users").child(userId).child("gender").setValue(userNewInfo.gender);
+        }
+
+        if(currentUser.address == null ||userNewInfo.address != null && !currentUser.address.equals(userNewInfo.address)){
+            database.child("users").child(userId).child("address").setValue(userNewInfo.address);
+        }
     }
 }

@@ -19,6 +19,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.alphadrawer.MainActivity;
 import com.example.alphadrawer.R;
 import com.example.alphadrawer.ui.login.AccountFormState;
+import com.example.alphadrawer.ui.user.user;
 
 public class profileFragment extends Fragment {
 
@@ -38,6 +39,10 @@ public class profileFragment extends Fragment {
 
         final EditText emailEditText = view.findViewById(R.id.profile_email);
         final EditText nameEditText = view.findViewById(R.id.profile_name);
+        final EditText ageEditText = view.findViewById(R.id.profile_age);
+        final EditText addressEditText = view.findViewById(R.id.profile_address);
+        final EditText genderEditText = view.findViewById(R.id.profile_gender);
+
         final Button resetButton = view.findViewById(R.id.profile_reset_button);
         final Button saveButton = view.findViewById(R.id.profile_submit_button);
 
@@ -60,10 +65,17 @@ public class profileFragment extends Fragment {
         });
 
         saveButton.setOnClickListener(v -> {
-            Boolean isUserNameValid = isUserNameValid(nameEditText.getText().toString());
-            Boolean isUserEmailValid = isUserEmailValid(emailEditText.getText().toString());
+            String name = nameEditText.getText().toString();
+            String email = emailEditText.getText().toString();
+            Integer age = Integer.getInteger(ageEditText.getText().toString());
+            String address = addressEditText.getText().toString();
+            String gender = genderEditText.getText().toString();
+
+            Boolean isUserNameValid = isUserNameValid(name);
+            Boolean isUserEmailValid = isUserEmailValid(email);
             if(isUserNameValid && isUserEmailValid) {
-               //TODO
+               user userNewInfo = new user(name, email, age, gender, address);
+                ((MainActivity) getActivity()).UpdateProfile(userNewInfo);
             }
         });
     }
