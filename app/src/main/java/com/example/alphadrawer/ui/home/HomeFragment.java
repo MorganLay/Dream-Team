@@ -33,13 +33,7 @@ import java.util.Calendar;
 
 public class HomeFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -54,8 +48,6 @@ public class HomeFragment extends Fragment {
         findWeather();
         super.onResume();
     }
-
-
 
     /*
         Returns the valid API url based on the desired city and country

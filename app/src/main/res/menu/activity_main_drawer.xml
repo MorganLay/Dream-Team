@@ -17,9 +17,9 @@
             android:icon="@drawable/activity"
             android:title="@string/menu_map" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_profile"
             android:icon="@drawable/profile"
-            android:title="@string/menu_slideshow" />
+            android:title="@string/menu_profile" />
         <item
             android:id="@+id/nav_preferences"
             android:icon="@drawable/preferences"

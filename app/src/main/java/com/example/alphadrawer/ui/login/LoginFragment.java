@@ -15,10 +15,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.alphadrawer.LoginActivity;
-import com.example.alphadrawer.NewAccountActivity;
 import com.example.alphadrawer.R;
 
 public class LoginFragment extends Fragment {

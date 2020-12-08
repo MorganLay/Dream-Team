@@ -5,6 +5,7 @@
     <string name="title_activity_login">login</string>
     <string name="title_activity_main">main</string>
     <string name="title_activity_newAccount">newAccount</string>
+    <string name="title_activity_profile">profile</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Simply Active</string>
@@ -14,7 +15,7 @@
     <string name="action_logout">Log out</string>
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Activity Search</string>
-    <string name="menu_slideshow">Profile</string>
+    <string name="menu_profile">Profile</string>
     <string name="menu_preferences">Preferences</string>
     <string name="menu_map">Nearby Activities</string>
     <string name="navigation_bar">navigationBar</string>
@@ -45,9 +46,6 @@
     <string name="action_guestSignIn">Sign In</string>
     <!-- Settings Titles -->
     <string name="securityHeader">Security</string>
-    <!-- Personal Information Preferences -->
-    <string name="name_label">Your name</string>
-    <string name="default_location_label">Your default location</string>
     <!-- Security Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>
@@ -82,4 +80,7 @@
     <string name="ProfileAge">Age</string>
     <string name="ProfileAddress">Address</string>
     <string name="ProfileGender">Gender</string>
+    <string name="profile_personal_info_header">About you</string>
+    <string name="valueNotSet">Not Set</string>
+    <string name="ProfileEmail">Email</string>
 </resources>
