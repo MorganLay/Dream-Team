@@ -86,9 +86,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void loginDataChanged(String email, String password) {
-        if (email.isEmpty() || password.isEmpty()) {
-            loginFormState.setValue(new AccountFormState(null, null));
-        } else {
+        if (!email.isEmpty() && !password.isEmpty()) {
             loginFormState.setValue(new AccountFormState(true));
         }
     }

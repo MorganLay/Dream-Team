@@ -7,9 +7,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -192,5 +189,48 @@ public class MainActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.userName)).setText("Guest");
         }
         return true;
+    }
+
+    public void retrieveProfile(){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String userId = user.getUid();
+
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> item = dataSnapshot.getChildren();
+                for(DataSnapshot data : item) {
+                    if (data.getKey().equals("users")) {
+                        Iterable<DataSnapshot> users = data.getChildren();
+                        for (DataSnapshot user : users) {
+                            if (user.getKey().equals(userId)) {
+                                com.example.alphadrawer.ui.user.user currentUser = user.getValue(user.class);
+                                if(currentUser.username != null) {
+                                    ((TextView) findViewById(R.id.profile_name)).setText(currentUser.username);
+                                }
+                                if(currentUser.email != null) {
+                                    ((TextView) findViewById(R.id.profile_email)).setText(currentUser.email);
+                                }
+                                if(currentUser.age != null) {
+                                    ((TextView) findViewById(R.id.profile_age)).setText(currentUser.username);
+                                }
+                                if(currentUser.gender != null) {
+                                    ((TextView) findViewById(R.id.profile_gender)).setText(currentUser.username);
+                                }
+                                if(currentUser.address != null) {
+                                    ((TextView) findViewById(R.id.profile_address)).setText(currentUser.username);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //Ignore
+            }
+        };
+        database.addValueEventListener(postListener);
     }
 }

@@ -60,10 +60,6 @@
             android:name=".NewAccountActivity"
             android:label="@string/title_activity_newAccount"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile"
-            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
