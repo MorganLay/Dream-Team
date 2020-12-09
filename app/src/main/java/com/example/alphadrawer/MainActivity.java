@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.alphadrawer.ui.preferences.Preferences;
 import com.example.alphadrawer.ui.user.user;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private user currentUser;
     private Location location;
     private double lat, lng = 0;
+    private Preferences preferences;
+    private DatabaseReference reff;
 
     public MainActivity() {
     }
@@ -65,6 +69,14 @@ public class MainActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(MainActivity.this);
         client = LocationServices.getFusedLocationProviderClient(this);
 
+        preferences = new Preferences();
+        reff = FirebaseDatabase.getInstance().getReference().child("Preferences");
+        preferences.setRad(5);
+        preferences.setResults(5);
+        preferences.setlat(45.4215);
+        preferences.setlng(75.6972);
+        reff.child("info1").setValue(preferences);
+
         if (ActivityCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
@@ -74,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
+
 
 
         // Passing each menu ID as a set of Ids because each
@@ -105,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
             if (location != null) {
                 lat = location.getLatitude();
                 lng = location.getLongitude();
+                preferences.setlat(lat);
+                preferences.setlng(lng);
+                reff.child("info1").setValue(preferences);
 
             }
         });

@@ -31,6 +31,11 @@ import com.google.android.libraries.places.api.net.FetchPlaceRequest;
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,6 +48,7 @@ public class GalleryFragment extends Fragment {
 
     Button ClickedButton;
     String activityName;
+    DatabaseReference reff;
 
     /*  Array that contains the options for the user to select activities. For testing purposes, these are the following:
         Array can be changed based on user profile/preferences. Perhaps sorted by their likelihood to use it.
@@ -52,9 +58,42 @@ public class GalleryFragment extends Fragment {
 
     ArrayList<String> idArr = new ArrayList<>();
     ArrayList<String> nameArr = new ArrayList<>();
+    double bound1lat;
+    double bound1lng;
+    double bound2lat;
+    double bound2lng;
+    double curlat;
+    double curlng;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        reff = FirebaseDatabase.getInstance().getReference().child("Preferences").child("info1");
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                double rad = Double.valueOf(snapshot.child("rad").getValue().toString());
+                curlat = Double.valueOf(snapshot.child("lat").getValue().toString());
+                curlng = Double.valueOf(snapshot.child("lng").getValue().toString());
+                System.out.println(rad);
+                System.out.println(curlat);
+                System.out.println(curlng);
+                System.out.println("~~~~~~~~~~~~~~~~~~~");
+                bound1lat = (curlat - rad/2/100);
+                System.out.println(bound1lat);
+                bound1lng = (curlng - rad/2/100);
+                System.out.println(bound1lng);
+                bound2lat = (curlat + rad/2/100);
+                System.out.println(bound2lat);
+                bound2lng = (curlng + rad/2/100);
+                System.out.println(bound2lng);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         MapsFragment fragment = new MapsFragment ();
         Bundle args = new Bundle();
@@ -110,10 +149,19 @@ public class GalleryFragment extends Fragment {
 
             AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
 
-            // Create a RectangularBounds object.
+
+
+
             RectangularBounds bounds = RectangularBounds.newInstance(
-                    new LatLng(45.411532,-75.707189),
-                    new LatLng(45.431532,-75.627189));
+                    new LatLng(bound1lat,bound1lng),
+                    new LatLng(bound2lat,bound2lng));
+
+            System.out.println(bound1lat);
+            System.out.println(bound1lng);
+            System.out.println(bound2lat);
+            System.out.println(bound2lng);
+            // Create a RectangularBounds object.
+
             // Use the builder to create a FindAutocompletePredictionsRequest.
 
             String query = activityName;
@@ -121,9 +169,9 @@ public class GalleryFragment extends Fragment {
 
             FindAutocompletePredictionsRequest request1 = FindAutocompletePredictionsRequest.builder()
                     // Call either setLocationBias() OR setLocationRestriction().
-                    .setLocationBias(bounds)
-                    //.setLocationRestriction(bounds)
-                    .setOrigin(new LatLng(45.421532,-75.697189))
+                    //.setLocationBias(bounds)
+                    .setLocationRestriction(bounds)
+                    .setOrigin(new LatLng(curlat,curlng))
                     //.setTypeFilter(TypeFilter.ADDRESS)
                     .setSessionToken(token)
                     .setQuery(query)

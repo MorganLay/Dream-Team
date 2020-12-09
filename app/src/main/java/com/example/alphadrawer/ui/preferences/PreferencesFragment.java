@@ -15,8 +15,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.alphadrawer.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class PreferencesFragment extends Fragment {
 
@@ -25,8 +28,11 @@ public class PreferencesFragment extends Fragment {
     TextView tvProgressLabel;
     TextView TvProgressLabel2;
     DatabaseReference reff;
+    DatabaseReference reff2;
     Button saveButton;
     Preferences preferences;
+    int rad;
+    int results;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,13 +42,29 @@ public class PreferencesFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_preferences, container, false);
         final TextView textView = root.findViewById(R.id.text_preferences);
         SeekBar seekBar = root.findViewById(R.id.seekBar);
+        SeekBar seekBar2 = root.findViewById(R.id.seekBar2);
         seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
+
+        reff = FirebaseDatabase.getInstance().getReference().child("Preferences").child("info1");
+        reff.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                rad = Integer.valueOf(snapshot.child("rad").getValue().toString());
+                results = Integer.valueOf(snapshot.child("results").getValue().toString());
+                seekBar.setProgress(rad);
+                seekBar2.setProgress(results);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         int progress = seekBar.getProgress();
         tvProgressLabel = root.findViewById(R.id.textViewslider);
         tvProgressLabel.setText("Max Distance (in km): " + progress);
 
-        SeekBar seekBar2 = root.findViewById(R.id.seekBar2);
         seekBar2.setOnSeekBarChangeListener(seekBarChangeListener2);
 
         int progress2 = seekBar2.getProgress();
@@ -55,18 +77,16 @@ public class PreferencesFragment extends Fragment {
             }
         });
 
-
+        reff2 = FirebaseDatabase.getInstance().getReference().child("Preferences");
         preferences = new Preferences();
-        reff = FirebaseDatabase.getInstance().getReference().child("Preferences");
         saveButton = root.findViewById(R.id.preferences_submit_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 preferences.setRad(seekBar.getProgress());
                 preferences.setResults(seekBar2.getProgress());
-                preferences.setlat(1.1111);
-                preferences.setlng(2.2222);
-                reff.child("info1").setValue(preferences);
+                reff2.child("info1").child("rad").setValue(preferences.getrad());
+                reff2.child("info1").child("results").setValue(preferences.getResults());
             }
         });
         return root;

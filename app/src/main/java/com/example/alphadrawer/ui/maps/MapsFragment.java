@@ -27,6 +27,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.example.alphadrawer.R;
 import com.google.android.libraries.places.api.Places;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -42,6 +47,7 @@ public class MapsFragment extends Fragment {
     private FusedLocationProviderClient client;
     private Location location;
     private double lat, lng = 0;
+    private DatabaseReference reff;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -88,9 +94,26 @@ public class MapsFragment extends Fragment {
                 longitude = locationH.getLongitude();
             }
 
-            for(int i = 0; i < locations.size();i++){
-                mMap.addMarker(new MarkerOptions().position(locations.get(i)).title(locationNames.get(i)));
-            }
+            reff = FirebaseDatabase.getInstance().getReference().child("Preferences").child("info1");
+            reff.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    int limit = Integer.valueOf(snapshot.child("results").getValue().toString());
+                    for(int i = 0; i < locations.size();i++){
+                        if(i > limit){
+                            break;
+                        }
+                        System.out.println("Added Marker");
+                        mMap.addMarker(new MarkerOptions().position(locations.get(i)).title(locationNames.get(i)));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
             System.out.println("This seems to have worked, wow ");
             LatLng ottawa = new LatLng(latitude, longitude);
             mMap.addMarker(new MarkerOptions().position(ottawa).title("Marker in Ottawa"));
