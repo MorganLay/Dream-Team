@@ -65,7 +65,7 @@
     <string name="weatherMessage">Hello, today is a nice day to go outside!</string>
     <string name="weatherTemperature">20°C</string>
     <string name="weatherPictureDescription">Icon showing the weather today</string>
-    <string name="defaultDate">December 7th, 2020</string>
+    <string name="defaultDate">December 9th, 2020</string>
     <string name="recommendationMessage">Based on your profile, you may like the following activities:</string>
     <string name="hiking">HIKING</string>
     <string name="swimming">SWIMMING</string>

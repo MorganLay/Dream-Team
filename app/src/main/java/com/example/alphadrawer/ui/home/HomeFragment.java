@@ -35,6 +35,7 @@ import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Calendar;
@@ -54,8 +55,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         findWeather();
+        // Make clickable with a list view that I can populate it with a data structure that holds the viability of specific activities
+
         super.onResume();
     }
+
+
 
     /*
         Returns the valid API url based on the desired city and country
@@ -127,6 +132,9 @@ public class HomeFragment extends Fragment {
     private int getWeatherImage(String desc, int temp){
         int imageSource = R.drawable.sun;
 
+        System.out.println(desc);
+
+
         Date currentTime = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(currentTime);
@@ -139,18 +147,16 @@ public class HomeFragment extends Fragment {
         // Setting weather pic
         if((hourA == 0 && hourB < 8) || (hourA == 1 && hourB > 9) || hourA == 2){
             daytime = false;
-        } else if (desc.contains("cloud")){
-            imageSource = R.drawable.cloud;
-        } else if (desc.contains("rain") || desc.contains("drizzle")){
-            imageSource = R.drawable.rain;
-        } else if (desc.contains("thunder")){
-            imageSource = R.drawable.thunder;
-        } else if (desc.contains("snow") || desc.contains("sleet")){
-            imageSource = R.drawable.snow;
-        }
-
-        if(!daytime){
+        }  if(!daytime){
             imageSource = R.drawable.moon;
+        }  if (desc.contains("cloud")){
+            imageSource = R.drawable.cloud;
+        }  if (desc.contains("rain") || desc.contains("drizzle")){
+            imageSource = R.drawable.rain;
+        }  if (desc.contains("thunder")){
+            imageSource = R.drawable.thunder;
+        }  if (desc.contains("snow") || desc.contains("sleet")){
+            imageSource = R.drawable.snow;
         }
 
         return imageSource;

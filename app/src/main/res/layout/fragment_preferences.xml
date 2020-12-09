@@ -29,13 +29,13 @@
 
         <TextView
             android:id="@+id/textViewslider"
-            android:layout_margin="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp" />
 
         <SeekBar
             android:id="@+id/seekBar"
-            android:max="10"
+            android:max="25"
             android:progress="5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
